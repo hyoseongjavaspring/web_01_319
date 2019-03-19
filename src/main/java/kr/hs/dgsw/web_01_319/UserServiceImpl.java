@@ -13,9 +13,9 @@ public class UserServiceImpl implements UserService{
 
     public UserServiceImpl(){
         userList = new ArrayList<>();
-        userList.add(new User("user1","user111@dgsw.hs.kr"));
-        userList.add(new User("user2","user222@dgsw.hs.kr"));
-        userList.add(new User("user3","user333@dgsw.hs.kr"));
+        userList.add(new User("user1","user111@dgsw.hs.kr", "aa"));
+        userList.add(new User("user2","user222@dgsw.hs.kr", "bb"));
+        userList.add(new User("user3","user333@dgsw.hs.kr", "cc"));
 
     }
 
@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User view(String name) {
+    public User view(String id) {
         return this.userList.stream()
-                .filter(user -> user.getName().equals(name))
+                .filter(user -> user.getId().equals(id))
                 .findAny()
                 .orElse(null);
 
@@ -35,25 +35,28 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean add(User user){
-        if(this.view(user.getName()) == null){
+        //추가하기전 중복체크
+        if(this.view(user.getId()) == null){
             return this.userList.add(user);
         }
+
         return false;
     }
 
     @Override
     public User update(User user) {
-        User found = this.view(user.getName());
+        User found = this.view(user.getId());
         if(found != null){
             found.setEmail(user.getEmail());
+            found.setName(user.getName());
             return found;
         }
         return null;
     }
 
     @Override
-    public boolean delete(String name) {
-        User found = this.view(name);
+    public boolean delete(String id) {
+        User found = this.view(id);
         return this.userList.remove(found);
     }
 
