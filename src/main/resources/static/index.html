@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script
+            src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div style="display: flex; flex-direction: row">
+    <div>
+        name    <input id="name"><br>
+        email <input id="email"><br>
+        id <input id="id"><br>
+    </div>
+    <div>
+        <button onclick="post()">POST</button><br>
+        <button onclick="get()">GET</button><br>
+        <button onclick="put()">PUT</button><br>
+        <button onclick="del()">DELETE</button><br>
+    </div>
+</div>
+<script>
+    function post(){
+        let name = $("#name").val();
+        let email = $("#email").val();
+        let id = $("#id").val();
+        console.log(name + " " + email + " " + id);
+        const data = {
+            name : name,
+            email : email,
+            id : id
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/id',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data) ,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    }
+
+    function get(){
+
+    }
+
+    function put(){
+
+    }
+
+    function del(){
+
+    }
+</script>
+</body>
+</html>
